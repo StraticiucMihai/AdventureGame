@@ -46,6 +46,12 @@ public class Main {
         while (true){
             /*Is a copy of exits from the Location class*/
             Map<String, Integer>  exits = location.get(loc).getExits();
+            Map<String, String> vocabulary = new HashMap<String, String>();
+            vocabulary.put("quit", "q");
+            vocabulary.put("north", "n");
+            vocabulary.put("south", "s");
+            vocabulary.put("west", "w");
+            vocabulary.put("east", "e");
 
             if (location.get(loc).getLocationID() == 0 ){
                 System.out.println("Good Bey");
@@ -66,21 +72,33 @@ public class Main {
             System.out.println();
             /*Enter Direction*/
             System.out.println("Enter the direction");
-            String[] inputText = scanner.nextLine().toLowerCase().split(" ");
+            String direction = scanner.nextLine().toLowerCase();
 //            for (String components : inputText){
 //                System.out.println(components);
 //            }
-            String direction = null; /*Default value of direction*/
-            if (inputText.length == 1){
-                direction = inputText[0].substring(0,1); /*Even if input text is split in 1 word we use inputText[0] because split method return a string of strings  */
-                /*Case when user enter a word [north , east, south or west ]  or enter the direction using a single letter [n s w e ] */
+//            String direction = null; /*Default value of direction*/
+//            if (inputText.length == 1){
+//                direction = inputText[0].substring(0,1); /*Even if input text is split in 1 word we use inputText[0] because split method return a string of strings  */
+//                /*Case when user enter a word [north , east, south or west ]  or enter the direction using a single letter [n s w e ] */
+//            }
+//            else if (inputText.length == 2){
+//                /*enter 2 words where the second is the actual direction to follow. In this case the first word doesn't meter*/
+//                 String temp =  inputText[1];
+//                 direction = temp.substring(0,1);/*Splitting string and extract te first letter*/
+//            }
+//            System.out.println(direction);
+            /*Corner case of this implementation consist in the fact that if in the string from the user there are 2 or more words used as a key in the vocabulary
+            * only the first one in the split string is used EX (quit north  only quit will be taken into account)  */
+            if(direction.length() >1){
+                String[] words = direction.split(" ");
+                for (String word: words){
+                    if (vocabulary.containsKey(word)){
+                        direction = vocabulary.get(word);
+                        break;
+                    }
+                }
             }
-            else if (inputText.length == 2){
-                /*enter 2 words where the second is the actual direction to follow. In this case the first word doesn't meter*/
-                 String temp =  inputText[1];
-                 direction = temp.substring(0,1);/*Splitting string and extract te first letter*/
-            }
-            System.out.println(direction);
+
 
             if (exits.containsKey(direction)){
                 loc = exits.get(direction);
