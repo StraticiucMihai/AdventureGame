@@ -1,0 +1,24 @@
+Map of the road:
+
+We can move giving commands [n s w e ] that correspond with the polar coordinates
+-------> 5
+|        |
+|        |
+2 < ---> 1 <---> 3
+^        |
+|        |
+|------- 4
+
+Directions that we can move :
+From 1:
+    In all directions
+From 2:
+    To 5
+From 3:
+    To 1
+From 4:
+    To 1
+    To 2
+From 5:
+    To 1
+    To 2
